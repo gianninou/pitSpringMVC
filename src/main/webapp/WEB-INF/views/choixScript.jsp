@@ -7,21 +7,19 @@
 <title>Insert title here</title>
 </head>
 <body>
-
-	<form method="post" action="envoieFichier" enctype="multipart/form-data">
-		quel site ? <select name="site">
-			<c:forEach items="${listeSite}" var="item" varStatus="status">
-				<option value="${status.index}">${item}</option>
-			</c:forEach>
-		</select> 
-		<br /> 
-		quel script ? <select name="script">
-			<c:forEach items="${listeScript}" var="item" varStatus="status">
-				<option value="${status.index}">${item}</option>
-			</c:forEach>
-		</select>
-		<input type="file" name="file" size="40000">
-		<button type="submit" value="Valider"/>
-	</form>
+	<div>
+		<form method="post" action="choixScript" enctype="application/x-www-form-urlencoded">
+			<label>quel site ? </label> <select name="site">
+				<c:forEach items="${listeSite}" var="item" varStatus="status">
+					<option value="${status.index}">${item}</option>
+				</c:forEach>
+			</select><br /> <label>quel script ? </label> <select name="script">
+				<c:forEach items="${listeScript}" var="item" varStatus="status">
+					<option value="${status.index}">${item}</option>
+				</c:forEach>
+			</select>
+			<button type="submit"></button>
+		</form>
+	</div>
 </body>
 </html>
