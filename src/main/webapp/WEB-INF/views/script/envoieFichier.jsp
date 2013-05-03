@@ -9,18 +9,19 @@
 </head>
 <body>
 	<div>
-		<p>Votre script doit contenir les colonnes :</p>
-		
+		<fieldset>
+			<legend>Envoie du fichier pour le script</legend>
+			<p>Votre script doit contenir les colonnes :</p>
 			<c:forEach items="${listeEntete}" var="entete" varStatus="status">
-				${entete}<br/>
+				${entete}<br />
 			</c:forEach>
-		
-		<form method="post" action="envoieFichier"
-			enctype="multipart/form-data">
+			<form method="post" action="${pageContext.request.contextPath}/script/envoieFichier"
+				enctype="multipart/form-data">
 
-			<input type="file" name="file" size="40000">
-			<button type="submit" value="Valider" name="Valider"></button>
-		</form>
+				<input type="file" name="file" size="40000">
+				<button type="submit">Envoyer</button>
+			</form>
+		</fieldset>
 	</div>
 </body>
 </html>
