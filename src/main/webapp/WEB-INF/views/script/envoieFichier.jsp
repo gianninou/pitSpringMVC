@@ -11,15 +11,29 @@
 	<div>
 		<fieldset>
 			<legend>Envoie du fichier pour le script</legend>
-			<p>Votre script doit contenir les colonnes :</p>
-			<c:forEach items="${listeEntete}" var="entete" varStatus="status">
-				${entete}<br />
-			</c:forEach>
-			<form method="post" action="${pageContext.request.contextPath}/script/envoieFichier"
+			<label>Votre script doit contenir les colonnes :</label>
+			<ul>
+				<c:forEach items="${listeEntete}" var="entete" varStatus="status">
+					<li>${entete}</li>
+				</c:forEach>
+			</ul>
+
+
+
+
+			<form method="post"
+				action="${pageContext.request.contextPath}/script/envoieFichier"
 				enctype="multipart/form-data">
 
-				<input type="file" name="file" size="40000">
+				<label>Voullez vous que l'INPN conserve vos données ?</label> 
+				<INPUT id="oui" type="radio" name="conservation" value="1" checked="checked"><label for="oui">oui</label>
+				<INPUT id="non" type="radio" name="conservation" value="0"><label for="non">non</label>
+				<br />
+				<label for="fichier">Selectionner un fichier : </label><input id=fichier" type="file" name="file" size="40000">
 				<button type="submit">Envoyer</button>
+			</form>
+			<form action="${pageContext.request.contextPath}/script" method="get">
+				<button type="submit">Début</button>
 			</form>
 		</fieldset>
 	</div>
