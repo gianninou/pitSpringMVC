@@ -4,13 +4,25 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link 	href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
-<script	src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
-<script	src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+<link
+	href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css"
+	rel="stylesheet" type="text/css" />
+<script
+	src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+<script
+	src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
 
 <script>
 $(document).ready(function() {
-    $("input#autocomplete").autocomplete({
+	$("#scriptConStat").hide();
+    $("#script").change(function(){
+    	if($(this).find('option:selected').attr('value')==1){
+    		$("#scriptConStat").show();
+    	}else{
+    		$("#scriptConStat").hide();
+    	}
+    });
+	$("input#autocomplete").autocomplete({
     	source: [
     	        <c:forEach items="${listeSite}" var="item" varStatus="status">
     	        	"${item.value}",
@@ -30,20 +42,29 @@ $(document).ready(function() {
 			<form method="post"
 				action="${pageContext.request.contextPath}/script/choixScript"
 				enctype="application/x-www-form-urlencoded">
-				
-				<label>quel site ? </label> <input id="autocomplete" name="site">
-				
-				<!-- <select name="site">
-					<c:forEach items="${listeSite}" var="item" varStatus="status">
-						<option value="${status.index}">${item}</option>
-					</c:forEach>
-				</select>-->
-				
-				<br /> <label>quel script ? </label> <select name="script">
-					<c:forEach items="${listeScript}" var="item" varStatus="status">
-						<option value="${status.index}">${item}</option>
-					</c:forEach>
-				</select>
+				<div>
+					<label>quel site ? </label> <input id="autocomplete" name="site">
+
+					<br /> <label>quel script ? </label> <select name="script"
+						id="script">
+						<c:forEach items="${listeScript}" var="item" varStatus="status">
+							<option value="${status.index}">${item}</option>
+						</c:forEach>
+					</select>
+				</div>
+				<div id="scriptConStat">
+					<label>Quelle methode : </label> <select name="optionMeth">
+						<c:forEach items="${listeOptionMeth}" var="item"
+							varStatus="option">
+							<option value="${item.value}">${item.value}</option>
+						</c:forEach>
+					</select> <label>Quelle type : </label> <select name="optionType">
+						<c:forEach items="${listeOptionType}" var="item"
+							varStatus="option">
+							<option value="${item.value}">${item.value}</option>
+						</c:forEach>
+					</select>
+				</div>
 				<button type="submit">Valider</button>
 			</form>
 		</fieldset>

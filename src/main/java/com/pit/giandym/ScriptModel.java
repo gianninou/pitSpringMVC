@@ -52,6 +52,26 @@ public class ScriptModel {
 		map = new TreeMap<Integer, String>(map);
 		return map;
 	}
+	
+	public static Map<Integer,String> getMethode(){
+		Map<Integer,String> map= new HashMap<Integer, String>(); 
+		String tab[] = {"carnino","maciejewski","ibp","wwf","rnf"};
+		for(int i=0;i<tab.length;i++){
+			map.put(i, tab[i]);
+		}
+		map = new TreeMap<Integer, String>(map);
+		return map;
+	}
+	
+	public static Map<Integer,String> getType(){
+		Map<Integer,String> map= new HashMap<Integer, String>(); 
+		String tab[] = {"habitat","site","action"};
+		for(int i=0;i<tab.length;i++){
+			map.put(i, tab[i]);
+		}
+		map = new TreeMap<Integer, String>(map);
+		return map;
+	}
 
 
 

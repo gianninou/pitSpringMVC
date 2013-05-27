@@ -25,6 +25,8 @@ public class UserFileModel {
 
 	private String script;
 	private String site;
+	private String type;
+	private String methode;
 	private String unique;
 	private Boolean conserver;
 
@@ -32,18 +34,35 @@ public class UserFileModel {
 	
 
 	public UserFileModel(){ 
+		this.script=null;
+		this.site=null;
+		this.type=null;
+		this.methode=null;
 		conserver=false;
 	}
 
 	public UserFileModel(String script,String site){
 		this.script=script;
 		this.site=site;
+		this.type=null;
+		this.methode=null;
 		conserver=false;
 
 		Date actuelle = new Date();
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd_hhmmss");
-		unique = dateFormat.format(actuelle)+"_"+this.site+"_"+this.script+"_"+((int)(Math.random()*1000));
+		unique = dateFormat.format(actuelle)+"_"+this.site+"_"+this.script+(this.methode!=null?"_"+this.methode:"")+(this.type!=null?"_"+this.type:"")+"_"+((int)(Math.random()*1000));
+	}
+	
+	public UserFileModel(String script,String site,String methode,String type){
+		this.script=script;
+		this.site=site;
+		this.type=type;
+		this.methode=methode;
+		conserver=false;
 
+		Date actuelle = new Date();
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd_hhmmss");
+		unique = dateFormat.format(actuelle)+"_"+this.site+"_"+this.script+(this.methode!=null?"_"+this.methode:"")+(this.type!=null?"_"+this.type:"")+"_"+((int)(Math.random()*1000));
 	}
 
 
@@ -60,12 +79,12 @@ public class UserFileModel {
 		if(unique==null){
 			Date actuelle = new Date();
 			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd_hhmmss");
-			unique = dateFormat.format(actuelle)+"_"+this.site+"_"+this.script+"_"+((int)(Math.random()*1000));
+			unique = dateFormat.format(actuelle)+"_"+this.site+"_"+this.script+(this.methode!=null?"_"+this.methode:"")+(this.type!=null?"_"+this.type:"")+"_"+((int)(Math.random()*1000));
 		}
 
 		try {
-			System.out.println("Execution : ...");
-			String cmd = "\tRscript " + ScriptDir +"/"+ ScriptModel.scriptSelected(Integer.parseInt(script))[0] +" "+ (dir) +" "+ name +" "+ outputDir +" "+ name;
+			System.out.println("Execution : ..."+methode+":"+type);
+			String cmd = "\tRscript " + ScriptDir +"/"+ ScriptModel.scriptSelected(Integer.parseInt(script))[0] +" "+ (dir) +" "+ name +" "+ outputDir +" "+ name+" "+(methode!=null?methode:"")+" "+(type!=null?type:"");
 			System.out.println(cmd);
 			Process p = Runtime.getRuntime().exec(cmd);
 			if(p.waitFor()!=0){

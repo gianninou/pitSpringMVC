@@ -53,6 +53,8 @@ public class HomeController implements HandlerExceptionResolver{
 		//On les ajoute au model pour pouvoir les afficher
 		request.setAttribute("listeSite",liste);
 		request.setAttribute("listeScript",script);
+		request.setAttribute("listeOptionMeth",ScriptModel.getMethode());
+		request.setAttribute("listeOptionType",ScriptModel.getType());
 
 		return "script/choixScript";
 	}
@@ -62,8 +64,17 @@ public class HomeController implements HandlerExceptionResolver{
 	public String selectScriptSite(HttpServletRequest request,HttpServletResponse reponse){	
 		String script;
 		String site;
+		String type;
+		String methode;
 		if(request.getParameter("script")!=null){
 			script = request.getParameter("script");
+			if(script.equals("1") && request.getParameter("optionMeth")!=null && request.getParameter("optionType")!=null){
+				methode=request.getParameter("optionMeth");
+				type=request.getParameter("optionType");			
+			}else{
+				System.out.println("L'attribut optionMeth ou optionType est à null");
+				return "script/erreurScript";
+			}
 		}else{
 			System.out.println("L'attribut script est à null");
 			return "script/erreurScript";
@@ -77,7 +88,7 @@ public class HomeController implements HandlerExceptionResolver{
 		}
 
 		//On cree un userFile en l'initialisant avec le numero de script et de site
-		request.getSession().setAttribute("userFile", new UserFileModel(script,site));
+		request.getSession().setAttribute("userFile", new UserFileModel(script, site, methode, type));
 
 		//recuperation des entetes et ajout dans la vue
 		List<String> entete= ScriptModel.getEnteteByScript(Integer.parseInt(request.getParameter("script")));
@@ -189,6 +200,6 @@ public class HomeController implements HandlerExceptionResolver{
 			model.put("errors", "Unexpected error: " + exception.getMessage());
 		}
 		model.put("FORM", new UserFileModel());
-		return new ModelAndView("/FileUploadForm", ((Map) model));
+		return new ModelAndView("/script/erreurScript", ((Map) model));
 	}
 }
