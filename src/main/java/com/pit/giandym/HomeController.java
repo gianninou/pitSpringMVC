@@ -35,12 +35,6 @@ public class HomeController implements HandlerExceptionResolver{
 		//Initialisation de la liste de fichier en session (liste des fichiers generess)
 		request.getSession().setAttribute("listeFichier", null);
 
-		//Recuperation de la date courante
-		//Date date = new Date();
-		//DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-		//String formattedDate = dateFormat.format(date);
-		//model.addAttribute("serverTime", formattedDate );
-
 		//récuperation de la liste des sites Natura2000
 		Map<Integer,String> liste = ScriptModel.getSite();
 		//recuperation de la liste de script
@@ -62,6 +56,7 @@ public class HomeController implements HandlerExceptionResolver{
 		String site=null;
 		String type=null;
 		String methode=null;
+		
 		if(request.getParameter("script")!=null){
 			script = request.getParameter("script");
 			System.out.println("Sript no : "+script);
@@ -78,14 +73,13 @@ public class HomeController implements HandlerExceptionResolver{
 			System.out.println("L'attribut script est à null");
 			return "script/erreurScript";
 		}
-
-		if(request.getParameter("site")!=null){
-			site = request.getParameter("site");
-		}else{
+		
+		site = request.getParameter("site");
+		if(site==null || !ScriptModel.getSite().containsValue(site) ){
 			System.out.println("L'attribut site est à null");
 			return "script/erreurScript";
 		}
-
+ 
 		//On cree un userFile en l'initialisant avec le numero de script et de site
 		request.getSession().setAttribute("userFile", new UserFileModel(script, site, methode, type));
 
