@@ -43,8 +43,7 @@ $(document).ready(function() {
 				action="${pageContext.request.contextPath}/script/choixScript"
 				enctype="application/x-www-form-urlencoded">
 				<div>
-					<label>quel site ? </label> <input id="autocomplete" name="site">
-
+					<label>quel site ? </label><input id="autocomplete" name="site" >
 					<br /> <label>quel script ? </label> <select name="script"
 						id="script">
 						<c:forEach items="${listeScript}" var="item" varStatus="status">

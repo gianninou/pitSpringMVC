@@ -7,7 +7,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
@@ -27,6 +26,7 @@ public class UserFileModel {
 	private String site;
 	private String type;
 	private String methode;
+	private String outputName;
 	private String unique;
 	private Boolean conserver;
 
@@ -38,6 +38,7 @@ public class UserFileModel {
 		this.site=null;
 		this.type=null;
 		this.methode=null;
+		this.setOutputName(null);
 		conserver=false;
 	}
 
@@ -46,6 +47,7 @@ public class UserFileModel {
 		this.site=site;
 		this.type=null;
 		this.methode=null;
+		this.setOutputName(null);
 		conserver=false;
 
 		Date actuelle = new Date();
@@ -58,6 +60,7 @@ public class UserFileModel {
 		this.site=site;
 		this.type=type;
 		this.methode=methode;
+		this.setOutputName(null);
 		conserver=false;
 
 		Date actuelle = new Date();
@@ -84,7 +87,7 @@ public class UserFileModel {
 
 		try {
 			System.out.println("Execution : ..."+methode+":"+type);
-			String cmd = "\tRscript " + ScriptDir +"/"+ ScriptModel.scriptSelected(Integer.parseInt(script))[0] +" "+ (dir) +" "+ name +" "+ outputDir +" "+ name+" "+(methode!=null?methode:"")+" "+(type!=null?type:"");
+			String cmd = "\tRscript " + ScriptDir +"/"+ ScriptModel.scriptSelected(Integer.parseInt(script))[0] +" "+ (dir) +" "+ name +" "+ outputDir +" "+ (getOutputName()!=null?getOutputName():name)+" "+(methode!=null?methode:"")+" "+(type!=null?type:"");
 			System.out.println(cmd);
 			Process p = Runtime.getRuntime().exec(cmd);
 			if(p.waitFor()!=0){
@@ -172,6 +175,14 @@ public class UserFileModel {
 
 	public void setConserver(Boolean conserver) {
 		this.conserver = conserver;
+	}
+
+	public String getOutputName() {
+		return outputName;
+	}
+
+	public void setOutputName(String outputName) {
+		this.outputName = outputName;
 	}
 	
 	

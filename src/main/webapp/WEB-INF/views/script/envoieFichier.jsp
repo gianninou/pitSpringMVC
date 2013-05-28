@@ -6,7 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-</head>
+</head> 
 <body>
 	<div>
 		<fieldset>
@@ -29,11 +29,12 @@
 				<INPUT id="oui" type="radio" name="conservation" value="1" checked="checked"><label for="oui">oui</label>
 				<INPUT id="non" type="radio" name="conservation" value="0"><label for="non">non</label>
 				<br />
-				<label for="fichier">Selectionner un fichier : </label><input id=fichier" type="file" name="file" size="40000">
-				<button type="submit">Envoyer</button>
+				<label for="fichier">Selectionner un fichier : </label><input id="fichier" type="file" name="file" size="40000"><br/>
+				<label for="outputName">Nom des fichiers de sortie</label> <input type="text" id="outputName" name="outputName"><br/>
+				<button type="submit">Envoyer et executer</button>
 			</form>
 			<form action="${pageContext.request.contextPath}/script" method="get">
-				<button type="submit">Début</button>
+				<button type="submit">Retour au début</button>
 			</form>
 		</fieldset>
 	</div>

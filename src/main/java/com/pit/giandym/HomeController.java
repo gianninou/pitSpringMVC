@@ -6,12 +6,9 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.text.DateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,7 +16,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -62,18 +58,21 @@ public class HomeController implements HandlerExceptionResolver{
 
 	@RequestMapping(value = "/script/choixScript", method = RequestMethod.POST)
 	public String selectScriptSite(HttpServletRequest request,HttpServletResponse reponse){	
-		String script;
-		String site;
-		String type;
-		String methode;
+		String script=null;
+		String site=null;
+		String type=null;
+		String methode=null;
 		if(request.getParameter("script")!=null){
 			script = request.getParameter("script");
-			if(script.equals("1") && request.getParameter("optionMeth")!=null && request.getParameter("optionType")!=null){
-				methode=request.getParameter("optionMeth");
-				type=request.getParameter("optionType");			
-			}else{
-				System.out.println("L'attribut optionMeth ou optionType est à null");
-				return "script/erreurScript";
+			System.out.println("Sript no : "+script);
+			if(script.equals("1")){
+				if(request.getParameter("optionMeth")!=null && request.getParameter("optionType")!=null){
+					methode=request.getParameter("optionMeth");
+					type=request.getParameter("optionType");			
+				}else{
+					System.out.println("L'attribut optionMeth ou optionType est à null");
+					return "script/erreurScript";
+				}
 			}
 		}else{
 			System.out.println("L'attribut script est à null");
@@ -108,11 +107,15 @@ public class HomeController implements HandlerExceptionResolver{
 			//ainsi que le nom
 			String name = script.getFile().getOriginalFilename();
 			ufm.setName(name.substring(0, name.lastIndexOf('.')));
-			
+			//on indique si les fichiers doivent etre conserves
 			String conservation = request.getParameter("conservation");
 			System.out.println("conserver ?  "+conservation);
 			ufm.setConserver(conservation.equals("1")?true:false);
-
+			//on met le nom de sortie donné
+			String outputName = request.getParameter("outputName");
+			System.out.println("outputName : "+outputName);
+			ufm.setOutputName(outputName);
+			
 			File f = new File (ufm.getPath());
 			f.mkdir();
 			System.out.println("creation du dossier : "+ufm.getPath() + ufm.getUnique());
@@ -125,7 +128,7 @@ public class HomeController implements HandlerExceptionResolver{
 				outputStream.write(ufm.getFile().getFileItem().get());
 				outputStream.close();
 				System.out.println("CHECK");
-				
+
 				Map<String,ArrayList<String>> map = ufm.execute();
 				if(map==null){
 					System.out.println("script/erreurScript");
@@ -190,6 +193,7 @@ public class HomeController implements HandlerExceptionResolver{
 		return null;
 	}
 
+	
 	@Override
 	public ModelAndView resolveException(HttpServletRequest arg0,HttpServletResponse arg1, Object arg2, Exception exception) {
 		Map<Object, Object> model = new HashMap<Object, Object>();
