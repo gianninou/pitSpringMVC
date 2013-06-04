@@ -40,7 +40,7 @@ $(document).ready(function() {
 		<fieldset>
 			<legend>Choix du site et du script</legend>
 			<form method="post"
-				action="${pageContext.request.contextPath}/script/choixScript"
+				action="${pageContext.request.contextPath}/script/envoieFichier"
 				enctype="application/x-www-form-urlencoded">
 				<div>
 					<label>quel site ? </label><input id="autocomplete" name="site" >

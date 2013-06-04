@@ -28,7 +28,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 public class HomeController implements HandlerExceptionResolver{
 
-	@RequestMapping(value = "/script", method = RequestMethod.GET)
+	@RequestMapping(value = "/script/choixScript", method = RequestMethod.GET)
 	public String selectScript(HttpServletRequest request,HttpServletResponse reponse) {
 		//Initialisation du userFile en session
 		request.getSession().setAttribute("userFile", new UserFileModel());
@@ -50,7 +50,7 @@ public class HomeController implements HandlerExceptionResolver{
 	}
 
 
-	@RequestMapping(value = "/script/choixScript", method = RequestMethod.POST)
+	@RequestMapping(value = "/script/envoieFichier", method = RequestMethod.POST)
 	public String selectScriptSite(HttpServletRequest request,HttpServletResponse reponse){	
 		String script=null;
 		String site=null;
@@ -91,7 +91,7 @@ public class HomeController implements HandlerExceptionResolver{
 	}
 
 
-	@RequestMapping(value = "/script/envoieFichier", method = RequestMethod.POST)
+	@RequestMapping(value = "/script/execution", method = RequestMethod.POST)
 	public String envoieFichier(HttpServletRequest request, @ModelAttribute(value="FORM") UserFileModel script,BindingResult result){
 		if(!result.hasErrors()){
 			//on recupere l'userFile de la session
@@ -144,7 +144,7 @@ public class HomeController implements HandlerExceptionResolver{
 	}
 
 
-	@RequestMapping(value = "/script/execution", method = RequestMethod.POST)
+	@RequestMapping(value = "/script/listeResultat", method = RequestMethod.POST)
 	public String resultScript(HttpServletRequest request,HttpServletResponse reponse){
 		request.setAttribute("listeFichier", request.getSession().getAttribute("listeFichier"));
 

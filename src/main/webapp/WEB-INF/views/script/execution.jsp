@@ -18,7 +18,7 @@
 				<!--<c:url value="getFile?id=${fichier.key}" >${fichier.value}</c:url><br />
 		 ${fichier.key} : ${fichier.value}<br />  -->
 			</c:forEach>
-			<form action="${pageContext.request.contextPath}/script" method="get">
+			<form action="${pageContext.request.contextPath}/script/choixScript" method="get">
 				<button type="submit">Début</button>
 			</form>
 		</fieldset>

@@ -22,7 +22,7 @@
 
 
 			<form method="post"
-				action="${pageContext.request.contextPath}/script/envoieFichier"
+				action="${pageContext.request.contextPath}/script/execution"
 				enctype="multipart/form-data">
 
 				<label>Voullez vous que l'INPN conserve vos données ?</label> 
@@ -33,7 +33,7 @@
 				<label for="outputName">Nom des fichiers de sortie</label> <input type="text" id="outputName" name="outputName"><br/>
 				<button type="submit">Envoyer et executer</button>
 			</form>
-			<form action="${pageContext.request.contextPath}/script" method="get">
+			<form action="${pageContext.request.contextPath}/script/choixScript" method="get">
 				<button type="submit">Retour au début</button>
 			</form>
 		</fieldset>

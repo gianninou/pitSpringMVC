@@ -14,7 +14,7 @@
 			Le fichier que vous avez envoyé ne convient pas au script séléctionné ou contient des erreurs.
 			Vérifiez également les entêtes demandées. 
 			Veuillez cliquer sur le bouton pour recommencer
-			<form action="${pageContext.request.contextPath}/script" method="get">
+			<form action="${pageContext.request.contextPath}/script/choixScript" method="get">
 				<button type="submit">Recommencer</button>
 			</form>
 		</fieldset>
