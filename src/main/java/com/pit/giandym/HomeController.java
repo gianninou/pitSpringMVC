@@ -57,6 +57,7 @@ public class HomeController implements HandlerExceptionResolver{
 		String type=null;
 		String methode=null;
 		
+		//recuperation du script choisi et de ces parametres s'il existes
 		if(request.getParameter("script")!=null){
 			script = request.getParameter("script");
 			System.out.println("Sript no : "+script);
@@ -74,6 +75,7 @@ public class HomeController implements HandlerExceptionResolver{
 			return "script/erreurScript";
 		}
 		
+		//récuperation du site de l'utilisateur
 		site = request.getParameter("site");
 		if(site==null || !ScriptModel.getSite().containsValue(site) ){
 			System.out.println("L'attribut site est à null");
@@ -123,6 +125,7 @@ public class HomeController implements HandlerExceptionResolver{
 				outputStream.close();
 				System.out.println("CHECK");
 
+				//execution du script
 				Map<String,ArrayList<String>> map = ufm.execute();
 				if(map==null){
 					System.out.println("script/erreurScript");

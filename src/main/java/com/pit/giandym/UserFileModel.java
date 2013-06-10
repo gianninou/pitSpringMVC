@@ -13,21 +13,33 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 public class UserFileModel {
 
+	//chemin d'acces au dossier contenant les scripts
 	public final String ScriptDir = "/home/giann/tmp/script";
+	//chemin d'acces aux fichiers des utilisateurs voulants garder les données pour des statistiques
 	public final String UserDataDir = "/home/giann/tmp/userData/";
+	//chemin d'acces aux fichiers des utilisateurs voulants que leurs données soit supprimées.
 	public final String UserDataDirDel = "/home/giann/tmp/userDataDel/";
 	
 
 
+	//nom du fichier envoyé
 	private String name;
+	//fichier envoyé
 	private CommonsMultipartFile file;
 
+	//nom du script pour executer le fichier envoyé
 	private String script;
+	//nom du site auquel appartient l'utilisateur
 	private String site;
+	//nom du type a utiliser pour le script (ConStat)
 	private String type;
+	//nom de la méthode a utiliser pour les script (ConStat)
 	private String methode;
+	//nom de sortie des fichiers générés
 	private String outputName;
+	//nom du dossier ou sera enregistrer toutes le données
 	private String unique;
+	//flag permettant de savoir si les données seront dans UserDataDir ou UserDataDirDel
 	private Boolean conserver;
 
 
@@ -70,14 +82,16 @@ public class UserFileModel {
 
 
 
+	
 	public Map<String,ArrayList<String>> execute(){
 		Map<String,ArrayList<String>> map = new HashMap<String, ArrayList<String>>();
-		
+		//repertoire de base contenant tout les fichiers pour cette session
 		String dir = (conserver?UserDataDir:UserDataDirDel)+unique;
 		String outputDir = dir+"/output";
 		
-		File f = new File(outputDir);
-		f.mkdir();
+		
+		File file = new File(outputDir);
+		file.mkdir();
 
 		if(unique==null){
 			Date actuelle = new Date();
@@ -87,8 +101,10 @@ public class UserFileModel {
 
 		try {
 			System.out.println("Execution : ..."+methode+":"+type);
+			//commande qui sera executé, il est possible de l'executer en cas de problème pour voir le resultat du script R et de voir les erreurs
 			String cmd = "\tRscript " + ScriptDir +"/"+ ScriptModel.scriptSelected(Integer.parseInt(script))[0] +" "+ (dir) +" "+ name +" "+ outputDir +" "+ (getOutputName()!=null?getOutputName():name)+" "+(methode!=null?methode:"")+" "+(type!=null?type:"");
 			System.out.println(cmd);
+			//on execute la commande
 			Process p = Runtime.getRuntime().exec(cmd);
 			if(p.waitFor()!=0){
 				System.out.println("Erreur lors de l'execution de script");
@@ -101,8 +117,9 @@ public class UserFileModel {
 			e.printStackTrace();
 		}
 
+		//on liste les fichiers créé pour les envoyer a la vue
 		int filecount=0;
-		File file = new File(outputDir);
+		//File file = new File(outputDir);
 		File[] files = file.listFiles();
 		if (files != null) {
 			for (int i = 0; i < files.length; i++) {
