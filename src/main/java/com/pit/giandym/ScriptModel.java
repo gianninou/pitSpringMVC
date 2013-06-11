@@ -61,7 +61,8 @@ public class ScriptModel {
 	//permet de recuperer les methodes pour le script ConStat
 	public static Map<Integer,String> getMethode(){
 		Map<Integer,String> map= new HashMap<Integer, String>(); 
-		String tab[] = {"carnino","maciejewski","ibp","wwf","rnf"};
+		//String tab[] = {"carnino","maciejewski","ibp","wwf","rnf"};
+		String tab[] = {"carnino"};
 		for(int i=0;i<tab.length;i++){
 			map.put(i, tab[i]);
 		}
