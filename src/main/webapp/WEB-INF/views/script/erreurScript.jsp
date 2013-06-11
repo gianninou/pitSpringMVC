@@ -11,9 +11,9 @@
 	<div>
 		<fieldset>
 			<legend>Erreur de fichier</legend>
-			Le fichier que vous avez envoyé ne convient pas au script séléctionné ou contient des erreurs.
-			Vérifiez également les entêtes demandées. 
-			Veuillez cliquer sur le bouton pour recommencer
+			Le fichier que vous avez envoyé ne convient pas au script séléctionné ou contient des erreurs.<br/>
+			Vérifiez également les entêtes demandées. <br/>
+			Veuillez cliquer sur le bouton pour recommencer<br/>
 			<form action="${pageContext.request.contextPath}/script/choixScript" method="get">
 				<button type="submit">Recommencer</button>
 			</form>

@@ -10,7 +10,7 @@
 <body>
 	<div>
 		<fieldset>
-			<legend>Envoie du fichier pour le script</legend>
+			<legend>Envoi du fichier pour le script</legend>
 			<label>Votre script doit contenir les colonnes :</label>
 			<ul>
 				<c:forEach items="${listeEntete}" var="entete" varStatus="status">
@@ -25,7 +25,7 @@
 				action="${pageContext.request.contextPath}/script/execution"
 				enctype="multipart/form-data">
 
-				<label>Voullez vous que l'INPN conserve vos données ?</label> 
+				<label>Voulez vous que l'INPN conserve vos données ?</label> 
 				<INPUT id="oui" type="radio" name="conservation" value="1" checked="checked"><label for="oui">oui</label>
 				<INPUT id="non" type="radio" name="conservation" value="0"><label for="non">non</label>
 				<br />
